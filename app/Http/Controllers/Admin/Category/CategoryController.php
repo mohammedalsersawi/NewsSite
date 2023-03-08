@@ -79,7 +79,7 @@ class CategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('status', function ($item) {
                 return '
-            <input class="activate-staticPage activate-category" category_id="'.$item->id.'"
+            <input class="activate-staticPage activate-category" category_id="' . $item->id . '"
              type="checkbox" id="checkbox"
             ' . ($item->status ? 'checked' : '') . '>
             <label for="checkbox"><span class="checkbox-icon"></span> </label>';
@@ -111,9 +111,8 @@ class CategoryController extends Controller
     {
         $category_activate =  Category::findOrFail($id);
         $category_activate->status = !$category_activate->status;
-        if (isset($category_activate) && $category_activate->save()){
+        if (isset($category_activate) && $category_activate->save()) {
             return $this->sendResponse(null, __('item_edited'));
-
         }
     }
 }

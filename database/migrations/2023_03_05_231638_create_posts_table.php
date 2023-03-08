@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamp('published_at')->nullable()->default(now());
+            $table->enum('status', ['0', '1'])->default('1');
+            $table->enum('view_main', ['0', '1']);
             $table->timestamps();
         });
     }

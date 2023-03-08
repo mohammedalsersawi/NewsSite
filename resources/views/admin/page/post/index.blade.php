@@ -1,11 +1,10 @@
 @extends('admin.layouts.app')
 @section('styles')
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#default'
-        });
-    </script>
+    <style>
+        input[type="checkbox"] {
+            transform: scale(2.1);
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -84,6 +83,7 @@
                                             <th>#</th>
                                             <th>اسم التصنيف</th>
                                             <th>الحالة</th>
+                                            <th>اظهار في الرئسية</th>
                                             <th style="width: 225px;">الاجراء</th>
                                         </tr>
                                     </thead>
@@ -97,160 +97,10 @@
                 </div>
             </section>
 
+            {{-- @include('admin.page.post.add') --}}
 
-            <section id="form_add_section" style="display: none">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="head-label">
-                                    <h4 class="card-title">التصنيفات</h4>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{ route('category.store') }}" method="POST" id="add-mode-form"
-                                    class="form_submit" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="name">عنوان الخبر</label>
-                                                    <textarea id="default">Hello, World!</textarea>
-                                                    <div class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <label for="slug">رابط الخبر</label>
-                                                <input type="text" class="form-control" placeholder="عنوان الرابط"
-                                                    name="slug">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="slug">صورة للخبر</label>
-                                                <input type="file" class="form-control" placeholder="عنوان الرابط"
-                                                    name="slug">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <label for="slug">صورة للخبر</label>
-                                                <input type="file" class="form-control" placeholder="عنوان الرابط"
-                                                    name="slug">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-8">
-                                                <label for="slug">صورة للخبر</label>
-                                                <input type="file" class="form-control" placeholder="عنوان الرابط"
-                                                    name="slug">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <label for="slug">صورة للخبر</label>
-                                                <input type="file" class="form-control" placeholder="عنوان الرابط"
-                                                    name="slug">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                            <div class="col-8">
-                                                <label for="slug">صورة للخبر</label>
-                                                <input type="file" class="form-control" placeholder="عنوان الرابط"
-                                                    name="slug">
-                                                <div class="invalid-feedback"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="name">عنوان الخبر</label>
-                                                    <textarea name="" id="mytextarea" class="form-control" cols="30" rows="10"></textarea>
-                                                    <div class="invalid-feedback"></div>
-                                                </div>
-                                            </div>
+            @include('admin.page.post.edite')
 
-                                        </div>
-
-
-
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" id="close_card"
-                                                data-dismiss="modal">@lang('close')</button>
-                                            <button class="btn btn-primary">@lang('add')</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-    </div>
-    <div class="modal fade full-modal-stem" data-backdrop="static" id="full-modal-stem" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">اضافة منشور</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('category.store') }}" method="POST" id="add-mode-form" class="form_submit"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="name">عنوان الخبر</label>
-                                    <textarea name="" id="mytextarea" class="form-control" cols="30" rows="2"></textarea>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="slug">رابط الخبر</label>
-                                    <input type="text" class="form-control" placeholder="عنوان الرابط"
-                                        name="slug">
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <label for="slug">صورة للخبر</label>
-                                <input type="file" class="form-control" placeholder="عنوان الرابط" name="slug">
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-4">
-                                <label for="slug"></label>
-                                <input type="file" class="form-control" placeholder="عنوان الرابط" name="slug">
-                                <div class="invalid-feedback"></div>
-                            </div>
-                            <div class="col-8">
-                                <label for="slug">صورة للخبر</label>
-                                <input type="file" class="form-control" placeholder="عنوان الرابط" name="slug">
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal">@lang('close')</button>
-                            <button class="btn btn-primary">@lang('add')</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 @endsection
@@ -266,5 +116,293 @@
             $("#section_content").css("display", "block");
             $("#form_add_section").css("display", "none");
         });
+        $(document).on('change', '#switch1', function(e) {
+            e.preventDefault();
+            var isChecked = $(this).prop('checked');
+            if (isChecked == true) {
+                $("#container_video").css("display", "block");
+            } else {
+                $("#container_video").css("display", "none");
+            }
+        });
+        $(document).on('change', '#switch2', function(e) {
+            e.preventDefault();
+            var isChecked = $(this).prop('checked');
+            if (isChecked == true) {
+                $("#container_albom").css("display", "block");
+            } else {
+                $("#container_albom").css("display", "none");
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#image').on('change', function() {
+                progress('#progress-bar-image', '#image');
+            });
+        });
+        $(document).ready(function() {
+            $('#video').on('change', function() {
+                progress('#progress-bar-video', '#video');
+            });
+        });
+        $(document).ready(function() {
+            $('#albom').on('change', function() {
+                progress('#progress-bar-albom', '#albom');
+            });
+        });
+
+        function progress($class_progress, $id_file) {
+            var formData = new FormData();
+            formData.append('image', $($id_file)[0].files[0]);
+            $($class_progress).css('width', '0%');
+            $($class_progress).text('0%');
+            var xhr = new XMLHttpRequest();
+            xhr.upload.addEventListener('progress', function(event) {
+                if (event.lengthComputable) {
+                    var percent = (event.loaded / event.total) * 100;
+                    $($class_progress).css('width', percent + '%');
+                    $($class_progress).text(percent.toFixed(2) + '%');
+                }
+            });
+            xhr.addEventListener('load', function(event) {});
+            xhr.addEventListener('error', function(event) {
+                // Handle error
+            });
+            xhr.open('POST', '/upload-image');
+            xhr.send(formData);
+        }
+    </script>
+
+
+    <script>
+        $('.form_submit_post').on('submit', function(event) {
+            // $('.search_input').val("").trigger("change")
+            event.preventDefault();
+            var data = new FormData(this);
+            let url = $(this).attr('action');
+            var method = $(this).attr('method');
+            $('input').removeClass('is-invalid');
+            $('.invalid-feedback').text('');
+            $.ajax({
+                type: method,
+                cache: false,
+                contentType: false,
+                processData: false,
+                url: url,
+                data: data,
+                beforeSend: function() {},
+                success: function(result) {
+                    $('#full-modal-stem').modal('hide');
+                    $('.form_submit_post').trigger("reset");
+                    toastr.success('@lang('done_successfully')');
+                    $("#section_content").css("display", "block");
+                    $("#form_add_section").css("display", "none");
+                    $(".container-file-opt").css("display", "none");
+                    $(".progress-bar").css('width', '0%');
+                    $(".progress-bar").text('0%');
+                    table.draw();
+                },
+                error: function(data) {
+                    if (data.status === 422) {
+                        var response = data.responseJSON;
+                        $.each(response.errors, function(key, value) {
+                            toastr.error(value);
+                            var str = (key.split("."));
+                            if (str[1] === '0') {
+                                key = str[0] + '[]';
+                            }
+                            $('[name="' + key + '"], [name="' + key + '[]"]').addClass(
+                                'is-invalid');
+                            $('[name="' + key + '"], [name="' + key + '[]"]').closest(
+                                '.form-group').find('.invalid-feedback').html(value[0]);
+                        });
+                    } else {
+                        toastr.error('@lang('something_wrong')', '', {});
+                    }
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        var table = $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            "oLanguage": {
+                @if (app()->isLocale('ar'))
+                    "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                    "sLoadingRecords": "جارٍ التحميل...",
+                    "sProcessing": "جارٍ التحميل...",
+                    "sLengthMenu": "أظهر _MENU_ مدخلات",
+                    "sZeroRecords": "لم يعثر على أية سجلات",
+                    "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ابحث:",
+                    "oAria": {
+                        "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    },
+                @endif // "oPaginate": {"sPrevious": '<-', "sNext": '->'},
+                "oPaginate": {
+                    // remove previous & next text from pagination
+                    "sPrevious": '&nbsp;',
+                    "sNext": '&nbsp;'
+                }
+            },
+            ajax: {
+                url: '{{ route('post.getData') }}',
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'title',
+                    name: 'title'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'view_main',
+                    name: 'view_main'
+                },
+
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+
+        });
+
+        $(document).on("click", ".activate-post", function(event) {
+            var id = $(this).attr("post-id");
+            $.ajax({
+                type: "put",
+                url: "{{ route('post.activate', '') }}" + '/' + id,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                contentType: "application/json",
+                success: function(data) {
+                    if (data.success == 200) {
+                        table.draw();
+                        toastr.success('@lang('editd')', '', {});
+                    }
+                },
+                error: function(data) {
+                    toastr.error(data.message);
+                },
+            });
+        });
+        $(document).on("click", ".activatePostMain", function(event) {
+            var id = $(this).attr("post-id");
+            $.ajax({
+                type: "put",
+                url: "{{ route('post.activate.main', '') }}" + '/' + id,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                },
+                contentType: "application/json",
+                success: function(data) {
+                    if (data.success == 200) {
+                        table.draw();
+                        toastr.success('@lang('editd')', '', {});
+                    }
+                },
+                error: function(data) {
+                    toastr.error(data.message);
+                },
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).on('click', '.edit_btn_post', function(e) {
+            debugger;
+            $("#section_content").css("display", "none");
+            $("#form_edit_section").css("display", "block");
+            var button = $(this)
+            var id = button.data('id');
+            $('#id').val(id);
+            $('#edit_title').val(button.data('title'));
+            $('#edit_slug').val(button.data('slug'));
+            $('#edit_content').val(button.data('content'));
+            // alert(button.data('view_main'));
+            if (button.data('view_main') == 1) {
+                $('#switch_main').prop('checked', true);
+            } else {
+                $('#switch_main').prop('checked', false);
+            }
+            $('#edit_category_id').val(button.data('category_id')).trigger('change');
+
+        });
+
+
+
+
+        $('#edit_form_post').on('submit', function(event) {
+            // $('.search_input').val("").trigger("change")
+            event.preventDefault();
+            var data = new FormData(this);
+            let url = $(this).attr('action');
+            let method = $(this).attr('method');
+            $.ajax({
+                type: method,
+                cache: false,
+                contentType: false,
+                processData: false,
+                url: url,
+                data: data,
+                beforeSend: function() {
+                    $('input').removeClass('is-invalid');
+                    $('.text-danger').text('');
+                    $('.btn-file').addClass('');
+                },
+                success: function(result) {
+                    $('#edit_modal').modal('hide');
+                    $('.form_edit_post').trigger("reset");
+                    $("#form_edit_section").css("display", "none");
+                    $("#section_content").css("display", "block");
+                    $(".container-form_edit_section-opt").css("display", "none");
+                    $(".progress-bar").css('width', '0%');
+                    $(".progress-bar").text('0%');
+                    table.draw();
+                    toastr.success('@lang('done_successfully')', '', {});
+                },
+                error: function(data) {
+
+                    if (data.status === 422) {
+
+                        var response = data.responseJSON;
+                        $.each(response.errors, function(key, value) {
+                            toastr.error(value);
+                            var str = (key.split("."));
+                            if (str[1] === '0') {
+                                key = str[0] + '[]';
+                            }
+                            $('[name="' + key + '"], [name="' + key + '[]"]').addClass(
+                                'is-invalid');
+                            $('[name="' + key + '"], [name="' + key + '[]"]').closest(
+                                '.form-group').find('.invalid-feedback').html(value[0]);
+                        });
+                    } else {
+                        toastr.error('@lang('something_wrong')', '', {});
+                    }
+                }
+            });
+        })
     </script>
 @endsection

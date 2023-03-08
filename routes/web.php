@@ -40,5 +40,7 @@ Route::group([
         Route::delete('delete/{id}', 'destroy')->name('delete');
         Route::get('/getData', 'getData')->name('getData');
         Route::put('/activate/{id}', 'activate')->name('activate');
+        Route::put('/activate/main/{id}', 'activate_main')->name('activate.main');
+        Route::post('/progress', 'progress')->name('progress');
     });
 });

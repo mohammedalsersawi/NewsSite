@@ -54,6 +54,7 @@
         href="{{ asset('dashboard/app-assets/css-rtl/core/menu/menu-types/vertical-menu.min.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('dashboard/app-assets/css-rtl/plugins/extensions/ext-component-toastr.min.css') }}">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- END: Page CSS-->
     @yield('styles')
 
@@ -182,6 +183,7 @@
     <!-- BEGIN: Page JS-->
     {{-- <script src="{{asset('dashboard/app-assets/js/scripts/tables/table-datatables-basic.min.js')}}"></script> --}}
     <script src="{{ asset('dashboard/app-assets/js/scripts/extensions/ext-component-toastr.min.js') }}"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- END: Page JS-->
     @yield('js')
     @yield('scripts')
