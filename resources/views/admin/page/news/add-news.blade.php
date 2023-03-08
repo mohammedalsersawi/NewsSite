@@ -1,18 +1,12 @@
  <section id="form_add_section" style="display: none">
      <div class="">
+         <div class="card" style="padding: 15px ; background-color: #d1c7c7">
+             <h2>اضافة خبر</h2>
+         </div>
          <div class="card">
              <form action="{{ route('post.store') }}" method="POST" id="fileUploadForm" class="form_submit_post"
                  enctype="multipart/form-data">
                  @csrf <div class="card-body">
-                     <div class="row">
-                         <div class="col-12">
-                             <div class="form-group">
-                                 <label for="name">عنوان الخبر</label>
-                                 <textarea class="form-control" id="title" name="title" placeholder="لا يزيد عن 150 حرفا عنوان الخبر"></textarea>
-                                 <div class="invalid-feedback"></div>
-                             </div>
-                         </div>
-                     </div>
                      <div class="row">
                          <div class="col-12">
                              <div class="form-group">
@@ -97,12 +91,12 @@
                          <div class="col-12 container-file-opt" id="container_video" style="display: none">
                              <div class="form-group">
                                  <input type="file" class="form-control news-video" name="video" id="">
+                                 <div class="invalid-feedback"></div>
                                  <div class="progress">
                                      <div class="progress-bar news-bar-video" id="" role="progressbar"
                                          style="width:" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                      </div>
                                  </div>
-                                 <div class="invalid-feedback"></div>
                              </div>
                          </div>
                      </div>
@@ -132,8 +126,9 @@
 
                      </div>
                      <div class="text-right">
-                         <button class="btn btn-primary">@lang('add')</button>
-                         <button type="button" class="btn btn-secondary close_card" id=""">@lang('close')</button>
+                         <button class="btn btn-primary">@lang('add') <i class="fa fa-plus"></i></button>
+                         <button type="button" class="btn btn-secondary close_card"
+                             id=""">@lang('close')</button>
                      </div>
                  </div>
              </form>

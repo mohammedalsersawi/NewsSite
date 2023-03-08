@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\Post\PostController;
 
 
 Route::middleware('auth')->get('/', function () {
-    return view('admin.layouts.app');
+    return view('front.index');
 });
 
 Route::group([

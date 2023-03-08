@@ -18,14 +18,20 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#}">التصنيفات</a>
+                                <li class="breadcrumb-item"><a href="#">التصنيفات</a>
                                 </li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="content-header-right col-md-3 col-12 mb-2">
+                <div class="btn-group float-md-right">
+                    <button class="btn btn-outline-primary button_forms" style="display: none">العودة للخلف</button>
+                </div>
+            </div>
         </div>
+
 
         <div class="content-body">
 
@@ -82,7 +88,8 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>اسم التصنيف</th>
+                                            <th>عنوان الخبر</th>
+                                            <th>التصنيف</th>
                                             <th>الحالة</th>
                                             <th>اظهار في الرئسية</th>
                                             <th style="width: 225px;">الاجراء</th>
@@ -110,6 +117,14 @@
             e.preventDefault();
             $("#section_content").css("display", "none");
             $("#form_add_section").css("display", "block");
+            $(".button_forms").css("display", "block");
+        });
+        $(document).on('click', '.button_forms', function(e) {
+            e.preventDefault();
+            $("#section_content").css("display", "block");
+            $("#form_add_section").css("display", "none");
+            $("#form_edit_section").css("display", "none");
+            $(".button_forms").css("display", "none");
         });
         $(document).on('click', '.close_card', function(e) {
             e.preventDefault();
@@ -180,13 +195,13 @@
 
     <script>
         $('.form_submit_post').on('submit', function(event) {
-            // $('.search_input').val("").trigger("change")
+            // $('.search_input').val("").trigger("change";
+            $('input, select, textarea').removeClass('is-invalid');
+            $('.invalid-feedback').text('');
             event.preventDefault();
             var data = new FormData(this);
             let url = $(this).attr('action');
             var method = $(this).attr('method');
-            $('input').removeClass('is-invalid');
-            $('.invalid-feedback').text('');
             $.ajax({
                 type: method,
                 cache: false,
@@ -196,12 +211,15 @@
                 data: data,
                 beforeSend: function() {},
                 success: function(result) {
+                    $('.invalid-feedback').text('');
+                    $('input, select, textarea').removeClass('is-invalid');
                     $('#full-modal-stem').modal('hide');
                     $('.form_submit_post').trigger("reset");
                     toastr.success('@lang('done_successfully')');
                     $("#section_content").css("display", "block");
                     $("#form_add_section").css("display", "none");
                     $(".container-file-opt").css("display", "none");
+                    $(".button_forms").css("display", "none");
                     $(".progress-bar").css('width', '0%');
                     $(".progress-bar").text('0%');
                     table.draw();
@@ -270,6 +288,10 @@
                     name: 'title'
                 },
                 {
+                    data: 'name_category',
+                    name: 'name_category'
+                },
+                {
                     data: 'status',
                     name: 'status'
                 },
@@ -333,6 +355,9 @@
 
     <script>
         $(document).on('click', '.edit_btn_news', function(e) {
+            $('input, select, textarea').removeClass('is-invalid');
+            $('.invalid-feedback').text('');
+            $(".button_forms").css("display", "block");
             $("#section_content").css("display", "none");
             $("#form_edit_section").css("display", "block");
             var button = $(this)
@@ -350,9 +375,6 @@
             $('#edit_category_id').val(button.data('category_id')).trigger('change');
 
         });
-
-
-
 
         $('#edit_form_post').on('submit', function(event) {
             // $('.search_input').val("").trigger("change")
@@ -380,6 +402,7 @@
                     $(".container-form_edit_section-opt").css("display", "none");
                     $(".progress-bar").css('width', '0%');
                     $(".progress-bar").text('0%');
+                    $(".button_forms").css("display", "none");
                     table.draw();
                     toastr.success('@lang('done_successfully')', '', {});
                 },
