@@ -28,6 +28,7 @@
         </div>
 
         <div class="content-body">
+
             <section id="section_content" style="display: block">
                 <div class="row">
                     <div class="col-12">
@@ -97,10 +98,9 @@
                 </div>
             </section>
 
-            {{-- @include('admin.page.post.add') --}}
+            @include('admin.page.news.edit-news')
 
-            @include('admin.page.post.edite')
-
+            @include('admin.page.news.add-news')
         </div>
     </div>
 @endsection
@@ -111,10 +111,11 @@
             $("#section_content").css("display", "none");
             $("#form_add_section").css("display", "block");
         });
-        $(document).on('click', '#close_card', function(e) {
+        $(document).on('click', '.close_card', function(e) {
             e.preventDefault();
             $("#section_content").css("display", "block");
             $("#form_add_section").css("display", "none");
+            $("#form_edit_section").css("display", "none");
         });
         $(document).on('change', '#switch1', function(e) {
             e.preventDefault();
@@ -138,20 +139,21 @@
 
     <script>
         $(document).ready(function() {
-            $('#image').on('change', function() {
-                progress('#progress-bar-image', '#image');
+            $('.news-image').on('change', function() {
+                progress('.news-bar-image', '.news-image');
             });
         });
         $(document).ready(function() {
-            $('#video').on('change', function() {
-                progress('#progress-bar-video', '#video');
+            $('.news-video').on('change', function() {
+                progress('.news-bar-video', '.news-video');
             });
         });
         $(document).ready(function() {
-            $('#albom').on('change', function() {
-                progress('#progress-bar-albom', '#albom');
+            $('.news-albom').on('change', function() {
+                progress('.news-bar-albom', '.news-albom');
             });
         });
+
 
         function progress($class_progress, $id_file) {
             var formData = new FormData();
@@ -286,8 +288,8 @@
 
         });
 
-        $(document).on("click", ".activate-post", function(event) {
-            var id = $(this).attr("post-id");
+        $(document).on("click", ".activate-news", function(event) {
+            var id = $(this).attr("news-id");
             $.ajax({
                 type: "put",
                 url: "{{ route('post.activate', '') }}" + '/' + id,
@@ -306,8 +308,8 @@
                 },
             });
         });
-        $(document).on("click", ".activatePostMain", function(event) {
-            var id = $(this).attr("post-id");
+        $(document).on("click", ".activatenewsMain", function(event) {
+            var id = $(this).attr("news-id");
             $.ajax({
                 type: "put",
                 url: "{{ route('post.activate.main', '') }}" + '/' + id,
@@ -330,8 +332,7 @@
 
 
     <script>
-        $(document).on('click', '.edit_btn_post', function(e) {
-            debugger;
+        $(document).on('click', '.edit_btn_news', function(e) {
             $("#section_content").css("display", "none");
             $("#form_edit_section").css("display", "block");
             var button = $(this)
@@ -342,9 +343,9 @@
             $('#edit_content').val(button.data('content'));
             // alert(button.data('view_main'));
             if (button.data('view_main') == 1) {
-                $('#switch_main').prop('checked', true);
+                $('#edit_view_main').prop('checked', true);
             } else {
-                $('#switch_main').prop('checked', false);
+                $('#edit_view_main').prop('checked', false);
             }
             $('#edit_category_id').val(button.data('category_id')).trigger('change');
 

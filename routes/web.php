@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\news\NewsController;
 use App\Http\Controllers\Admin\Post\PostController;
 
 /*
@@ -17,7 +18,7 @@ use App\Http\Controllers\Admin\Post\PostController;
 
 
 Route::middleware('auth')->get('/', function () {
-    return view('admin.page.post.index');
+    return view('admin.layouts.app');
 });
 
 Route::group([
@@ -33,7 +34,7 @@ Route::group([
         Route::get('/getData', 'getData')->name('getData');
         Route::put('/activate/{id}', 'activate')->name('activate');
     });
-    Route::controller(PostController::class)->name('post.')->prefix('post')->group(function () {
+    Route::controller(NewsController::class)->name('post.')->prefix('post')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
