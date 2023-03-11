@@ -54,7 +54,7 @@
         href="{{ asset('dashboard/app-assets/css-rtl/core/menu/menu-types/vertical-menu.min.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('dashboard/app-assets/css-rtl/plugins/extensions/ext-component-toastr.min.css') }}">
-        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- END: Page CSS-->
     @yield('styles')
 
@@ -200,6 +200,16 @@
     </script>
 
     <script>
+        $('#search_btn').on('click', function(e) {
+            table.draw();
+            e.preventDefault();
+        });
+
+        $('#clear_btn').on('click', function(e) {
+            e.preventDefault();
+            $('.search_input').val("").trigger("change")
+            table.draw();
+        });
         $('.form_submit').on('submit', function(event) {
             $('.search_input').val("").trigger("change")
             event.preventDefault();

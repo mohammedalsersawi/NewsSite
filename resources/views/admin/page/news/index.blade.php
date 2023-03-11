@@ -58,13 +58,45 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
+                                                <label for="title">@lang('title')</label>
+                                                <input type="text" class="form-control" name="title" id="s_title">
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
                                                 <label for="status">@lang('status')</label>
                                                 <select name="status" id="s_status" class="search_input form-control"
                                                     data-select2-id="select2-data-1-bgy2" tabindex="-1" aria-hidden="true">
                                                     <option selected disabled>اختار @lang('status')</option>
-                                                    <option value="1">فعال</option>
-                                                    <option value="0">فعال غير</option>
-
+                                                    @foreach ($status as $key => $item)
+                                                        <option value="{{ $key }}">@lang($item)</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="view_main">@lang('view_main')</label>
+                                                <select name="view_main" id="s_view_main" class="search_input form-control"
+                                                    data-select2-id="select2-data-1-bgy2" tabindex="-1" aria-hidden="true">
+                                                    <option selected disabled>@lang('select')</option>
+                                                    @foreach ($status as $key => $item)
+                                                        <option value="{{ $key }}">@lang($item)</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group">
+                                                <label for="category_id">@lang('category')</label>
+                                                <select name="category_id" id="s_category" class="search_input form-control"
+                                                    data-select2-id="select2-data-1-bgy2" tabindex="-1" aria-hidden="true">
+                                                    <option selected disabled>@lang('select')</option>
+                                                    @if (@isset($category))
+                                                        @foreach ($category as $iteam)
+                                                            <option value="{{ $iteam->id }}"> {{ $iteam->name }}
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -131,6 +163,7 @@
             $("#section_content").css("display", "block");
             $("#form_add_section").css("display", "none");
             $("#form_edit_section").css("display", "none");
+            $(".button_forms").css("display", "none");
         });
         $(document).on('change', '#switch1', function(e) {
             e.preventDefault();
@@ -276,6 +309,12 @@
             },
             ajax: {
                 url: '{{ route('post.getData') }}',
+                data: function(d) {
+                    d.status = $('#s_status').val();
+                    d.view_main = $('#s_view_main').val();
+                    d.category_id = $('#s_category').val();
+                    d.title = $('#s_title').val();
+                }
             },
             columns: [{
                     data: 'DT_RowIndex',

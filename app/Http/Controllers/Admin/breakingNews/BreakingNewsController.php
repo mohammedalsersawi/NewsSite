@@ -2,10 +2,106 @@
 
 namespace App\Http\Controllers\Admin\breakingNews;
 
-use App\Http\Controllers\Controller;
+use App\Models\BreakingNews;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\ResponseTrait;
+use Yajra\DataTables\Facades\DataTables;
 
 class BreakingNewsController extends Controller
 {
-    //
+    use ResponseTrait;
+
+    public function index()
+    {
+        $status =  BreakingNews::STATUS;
+        return view('admin.page.breakingNews.index' ,compact('status'));
+    }
+
+
+    public function store(Request $request)
+    {
+        $rules = [];
+        $messages = [];
+        $rules['content'] = 'required|string|max:100';
+        $messages = [
+            'content.required' => 'عنوان الخبر مطلوب',
+            'content.string' => ' عنوان الخبر  يجب أن يكون نص',
+            'content.max' => '  عنوان الخبر يجب أن لا يتجاوز 100 حرفًا',
+        ];
+        $this->validate($request, $rules, $messages);
+        $breaking_news = new BreakingNews();
+        $breaking_news->content = $request->content;
+        $breaking_news->status = isset($request->status) && ($request->status == 'on') ? 1 : 0;
+        if ($breaking_news->save()) {
+            return $this->sendResponse(null, __('item_added'));
+        }
+    }
+
+    public function getData(Request $request)
+    {
+        $breaking_news = BreakingNews::query();
+
+        return Datatables::of($breaking_news)
+            ->filter(function ($query) use ($request) {
+                if ($request->get('status') !== null) {
+                    $query->where('status', '=', $request->get('status'));
+                }
+            })
+            ->addIndexColumn()
+            ->addColumn('status', function ($item) {
+                return '
+            <input class="activate-breaking activate-category" id="' . $item->id . '"
+             type="checkbox" id="checkbox"
+            ' . ($item->status ? 'checked' : '') . '>
+            <label for="checkbox"><span class="checkbox-icon"></span> </label>';
+            })
+            ->addColumn('action', function ($que) {
+                $data_attr = '';
+                $data_attr .= 'data-id="' . @$que->id . '" ';
+                $data_attr .= 'data-content="' . @$que->content . '" ';
+                $data_attr .= 'data-status="' . @$que->status . '" ';
+                $string = '';
+                $string .= '<button class="edit_btn btn btn-sm btn-outline-primary btn_edit" data-toggle="modal"
+                    data-target="#edit_modal" ' . $data_attr . '>' . __('edit') . '</button>';
+                $string .= ' <button type="button"  class="btn btn-sm btn-outline-danger btn_delete" data-id="' . $que->id .
+                    '">' . __('delete') . '  </button>';
+                return $string;
+            })
+            ->rawColumns(['action', 'status'])
+            ->make(true);
+    }
+
+    function update(Request $request)
+    {
+        $rules = [];
+        $messages = [];
+        $rules['content'] = 'required|string|max:100';
+        $messages = [
+            'content.required' => 'عنوان الخبر مطلوب',
+            'content.string' => ' عنوان الخبر  يجب أن يكون نص',
+            'content.max' => '  عنوان الخبر يجب أن لا يتجاوز 100 حرفًا',
+        ];
+        $this->validate($request, $rules, $messages);
+        $breaking_news =  BreakingNews::findOrFail($request->id);
+        $breaking_news->content = $request->content;
+        $breaking_news->status = isset($request->status) && ($request->status == 'on') ? 1 : 0;
+        if ($breaking_news->save()) {
+            return $this->sendResponse(null, __('item_added'));
+        }
+    }
+
+    public function destroy($id)
+    {
+        $breaking_news = BreakingNews::destroy($id);
+        return $this->sendResponse(null, null);
+    }
+    public function activate($id)
+    {
+        $breaking_news =  BreakingNews::findOrFail($id);
+        $breaking_news->status = !$breaking_news->status;
+        if (isset($breaking_news) && $breaking_news->save()) {
+            return $this->sendResponse(null, __('item_edited'));
+        }
+    }
 }

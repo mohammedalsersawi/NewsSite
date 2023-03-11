@@ -19,4 +19,9 @@ class News extends Model
     {
         return @$this->category->name;
     }
+
+    public const STATUS = [
+        0 => 'inactive',
+        1 => 'active',
+    ];
 }

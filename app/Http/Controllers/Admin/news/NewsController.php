@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\ResponseTrait;
+use PhpParser\Node\Expr\New_;
 use Yajra\DataTables\Facades\DataTables;
 
 class NewsController extends Controller
@@ -17,7 +18,8 @@ class NewsController extends Controller
     public function index()
     {
         $category = Category::all();
-        return view('admin.page.news.index', compact('category'));
+        $status =  News::STATUS;
+        return view('admin.page.news.index', compact('category', 'status'));
     }
 
     public function store(Request $request)
@@ -55,13 +57,21 @@ class NewsController extends Controller
     public function getData(Request $request)
     {
         $news = News::query();
-
         return Datatables::of($news)
-            // ->filter(function ($query) use ($request) {
-            //     if ($request->get('status')) {
-            //         $query->where('status', $request->status);
-            //     }
-            // })
+            ->filter(function ($query) use ($request) {
+                if ($request->get('status') !== null) {
+                    $query->where('status', '=', $request->get('status'));
+                }
+                if ($request->get('view_main') !== null) {
+                    $query->where('view_main', '=', $request->get('view_main'));
+                }
+                if ($request->get('category_id') !== null) {
+                    $query->where('category_id', '=', $request->get('category_id'));
+                }
+                if ($request->get('title')) {
+                    $query->where('title', 'like', "%{$request->title}%");
+                }
+            })
             ->addIndexColumn()
             ->addColumn('status', function ($item) {
                 return '
