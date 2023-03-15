@@ -26,7 +26,7 @@ class NewsController extends Controller
     {
         $rules = [];
         $messages = [];
-        $rules['title'] = 'required|string|max:150';
+        $rules['title'] = 'required|string|max:200';
         $rules['slug'] = 'required|string|max:45';
         $rules['image'] = 'required|image';
         $rules['video'] = 'required_if:videoSwitch,on';
@@ -50,6 +50,13 @@ class NewsController extends Controller
         $news->slug = arabicSlug($request->slug);
         $news->view_main = isset($request->view_main) && ($request->view_main == 'on') ? 1 : 0;
         if ($news->save()) {
+            UploadImage($request->image, null, 'App\Models\News', $news->id, false);
+
+            if ($request->hasFile('albom')) {
+                foreach ($request->File('albom') as $file) {
+                    UploadImage($file, null, 'App\Models\News', $news->id, false);
+                }
+            }
             return $this->sendResponse(null, __('item_added'));
         }
     }
@@ -135,7 +142,7 @@ class NewsController extends Controller
     {
         $rules = [];
         $messages = [];
-        $rules['title'] = 'required|string|max:150';
+        $rules['title'] = 'required|string|max:200';
         $rules['slug'] = 'required|string|max:45';
         $rules['content'] = 'required|string';
         $rules['category_id'] = 'required|numeric|exists:categories,id';

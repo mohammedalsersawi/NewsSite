@@ -20,6 +20,12 @@ class News extends Model
         return @$this->category->name;
     }
 
+    public function images()
+    {
+        return $this->morphOne(Uplode::class, 'relation');
+    }
+
+
     public const STATUS = [
         0 => 'inactive',
         1 => 'active',

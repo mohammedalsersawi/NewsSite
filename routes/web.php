@@ -3,9 +3,11 @@
 use App\Http\Controllers\Admin\breakingNews\BreakingNewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Content\ContentController;
 use App\Http\Controllers\Admin\news\NewsController;
 use App\Http\Controllers\Admin\Post\PostController;
 use App\Http\Controllers\Front\MainController;
+use App\Models\Content;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,9 @@ use App\Http\Controllers\Front\MainController;
 */
 
 
-// Route::middleware('auth')->get('/', function () {
-//     return view('front.index');
-// });
+Route::get('/cccc', function () {
+    return view('front.layouts.app');
+});
 
 Route::group([
     'prefix' => 'admin',
@@ -54,6 +56,14 @@ Route::group([
         Route::get('/getData', 'getData')->name('getData');
         Route::put('/activate/{id}', 'activate')->name('activate');
     });
+    Route::controller(ContentController::class)->name('contents.')->prefix('contents')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update', 'update')->name('update');
+        Route::delete('delete/{id}', 'destroy')->name('delete');
+        Route::get('/getData', 'getData')->name('getData');
+        Route::put('/activate/{id}', 'activate')->name('activate');
+    });
 });
 
 
@@ -62,6 +72,10 @@ Route::group([
 
     Route::controller(MainController::class)->name('main.page.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/{slug}/{id}', 'show')->name('show');
+        Route::get('category/{slug}/{id}', 'show')->name('show');
+        Route::get('/show/categories', 'showCategories')->name('categories');
+        Route::get('/show/{slug}/{id}', 'showNewss')->name('newss');
+        Route::get('/load/newss/{id}', 'loadnewss')->name('loadnewss');
+
     });
 });

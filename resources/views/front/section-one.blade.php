@@ -2,20 +2,24 @@
     <div class="col-xl-8 stretch-card grid-margin">
         <div id="slider-container" style="width: 100%; overflow: hidden; direction: ltr">
             <div class="swiper-wrapper">
-                @foreach ($newss as $iteam)
+                @foreach ($slider_newss as $iteam)
                     <div class="swiper-slide">
                         <div class="position-relative">
-                            <img src="assets/images/dashboard/banner.jpg" alt="banner" class="img-fluid" />
+                            <a href="{{ route('main.page.newss', [$iteam->slug, $iteam->id]) }}"><img
+                                    src="{{ asset('uploads/' . $iteam->images->full_small_path) }}" alt="banner"
+                                    class="img-fluid" /></a>
                             <div class="banner-content">
                                 <div class="badge badge-danger fs-12 font-weight-bold mb-3">
                                     {{ $iteam->category->name }}
                                 </div>
-                                <h1 class="mb-0">{{ $iteam->title }}</h1>
+                                <a href="{{ route('main.page.newss' ,[$iteam->slug , $iteam->id]) }}" class="text-dark">
+                                    <h1 class="mb-0">{{ $iteam->title }}</h1>
+                                </a>
                                 <h1 class="mb-2">
-                                    {{ $iteam->content }}
                                 </h1>
                                 <div class="fs-12">
-                                    <span class="mr-2">Photo </span>10 Minutes ago
+                                    <span class="mr-2">صورة
+                                    </span>{{ \Carbon\Carbon::parse($iteam->published_at)->diffForHumans() }}
                                 </div>
                             </div>
                         </div>
@@ -36,13 +40,21 @@
                 @foreach ($latest_news as $iteam)
                     <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-end">
                         <div class="pl-3">
-                            <h5>{{ $iteam->title }}</h5>
+                            <h5>
+                                <a href="{{ route('main.page.newss', [$iteam->slug, $iteam->id]) }}"
+                                    class="text-white">
+                                    <div style="direction: rtl">{{ shorten_text($iteam->title, 60) }}</div>
+                                </a>
+                            </h5>
                             <div class="fs-12">
                                 {{-- <span class="mr-2">Photo </span>10 Minutes ago --}}
                             </div>
                         </div>
                         <div class="rotate-img">
-                            <img src="assets/images/dashboard/home_1.jpg" alt="thumb" class="img-fluid img-lg" />
+                            <a href="{{ route('main.page.newss', [$iteam->slug, $iteam->id]) }}">
+                                <img src="{{ asset('uploads/' . $iteam->images->full_small_path) }}" alt="thumb"
+                                    class="img-fluid img-lg" />
+                            </a>
                         </div>
                     </div>
                 @endforeach

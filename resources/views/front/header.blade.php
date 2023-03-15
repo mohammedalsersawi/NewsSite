@@ -24,11 +24,7 @@
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{ route('main.page.index') }}">الرئيسية</a>
                             </li>
-                            @foreach ($categories as $iteam)
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{ route('main.page.show' , [$iteam->slug , $iteam->id]) }}">{{ $iteam->name }}</a>
-                                </li>
-                            @endforeach
+
                         </ul>
                     </div>
                 </div>
