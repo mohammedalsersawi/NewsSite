@@ -114,8 +114,8 @@
                     <div class="modal-body">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="content">الخبر</label>
-                                <textarea class="form-control" placeholder="@lang('news')" name="content" id="" cols="30"
+                                <label for="title">الخبر</label>
+                                <textarea class="form-control" placeholder="@lang('news')" name="title" id="" cols="30"
                                     rows="5"></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -147,7 +147,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">تعديل تصنيف</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">تعديل خبر عاجل</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -159,9 +159,9 @@
                     <div class="modal-body">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="content">الخبر</label>
-                                <textarea class="form-control" placeholder="@lang('news')" name="content" cols="30" rows="5"
-                                    id="edit_content"></textarea>
+                                <label for="title">الخبر</label>
+                                <textarea class="form-control" placeholder="@lang('news')" name="title" cols="30" rows="5"
+                                    id="edit_title"></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -228,8 +228,8 @@
                     searchable: false
                 },
                 {
-                    data: 'content',
-                    name: 'content'
+                    data: 'title',
+                    name: 'title'
                 },
                 {
                     data: 'status',
@@ -254,13 +254,32 @@
                 $('.invalid-feedback').text('');
                 var button = $(this)
                 var id = button.data('id');
-                $('#id').val(id);
-                $('#edit_content').val(button.data('content'));
-                if (button.data('status') == 1) {
-                    $('#edit_breaking').prop('checked', true);
-                } else {
-                    $('#edit_breaking').prop('checked', false);
-                }
+                $.ajax({
+                    url: "{{ route('breaking.news.edit') }}",
+                    method: "get",
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        $('#edit_title').val(response.data.title);
+                        $('#id').val(response.data.id);
+                        if (response.data.status == 1) {
+                            $('#edit_breaking').prop('checked', true);
+
+                        } else {
+                            $('#edit_breaking').prop('checked', false);
+
+                        }
+
+
+                    },
+                    error: function(response) {}
+                });
+
+
+
+
+
             });
         });
 

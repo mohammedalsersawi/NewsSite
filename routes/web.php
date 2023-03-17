@@ -50,6 +50,7 @@ Route::group([
     });
     Route::controller(BreakingNewsController::class)->name('breaking.news.')->prefix('breaking/news')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/edit', 'edit')->name('edit');
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
         Route::delete('delete/{id}', 'destroy')->name('delete');

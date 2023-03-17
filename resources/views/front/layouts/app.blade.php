@@ -89,19 +89,60 @@
             <!-- partial -->
             <div class="flash-news-banner">
                 <div class="container">
-                    <div class="d-lg-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
+                  <div
+                    id="slider-container"
+                    style="width: 100%; overflow: hidden; direction: ltr"
+                  >
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide" style="direction: rtl">
+                        <div
+                          class="d-lg-flex align-items-center justify-content-between"
+                        >
+                          <div class="d-flex align-items-center">
                             <p class="mb-0">
-                                Lorem Ipsum has been the industry's standard dummy text ever
-                                since the 1500s.
+                              Lorem Ipsum has been the industry's standard dummy text
+                              ever since the 1500s.
                             </p>
-                        </div>
-                        <div class="d-flex">
+                          </div>
+                          <div class="text-center mt-md-2">
                             <span class="mr-3" onclick="removeBanner()">&times;</span>
+                          </div>
                         </div>
+                      </div>
+                      <div class="swiper-slide" style="direction: rtl">
+                        <div
+                          class="d-lg-flex align-items-center justify-content-between"
+                        >
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0">
+                              Lorem Ipsum has been the industry's standard dummy text
+                              ever since the 2000s.
+                            </p>
+                          </div>
+                          <div class="text-center mt-md-2">
+                            <span class="mr-3" onclick="removeBanner()">&times;</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="swiper-slide" style="direction: rtl">
+                        <div
+                          class="d-lg-flex align-items-center justify-content-between"
+                        >
+                          <div class="d-flex align-items-center">
+                            <p class="mb-0">
+                              Lorem Ipsum has been the industry's standard dummy text
+                              ever since the 2500s.
+                            </p>
+                          </div>
+                          <div class="text-center mt-md-2">
+                            <span class="mr-3" onclick="removeBanner()">&times;</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
+              </div>
             <div class="content-wrapper">
                 @yield('content')
             </div>

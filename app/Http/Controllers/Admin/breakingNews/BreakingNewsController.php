@@ -23,15 +23,15 @@ class BreakingNewsController extends Controller
     {
         $rules = [];
         $messages = [];
-        $rules['content'] = 'required|string|max:100';
+        $rules['title'] = 'required|string|max:200';
         $messages = [
-            'content.required' => 'عنوان الخبر مطلوب',
-            'content.string' => ' عنوان الخبر  يجب أن يكون نص',
-            'content.max' => '  عنوان الخبر يجب أن لا يتجاوز 100 حرفًا',
+            'title.required' => 'عنوان الخبر مطلوب',
+            'title.string' => ' عنوان الخبر  يجب أن يكون نص',
+            'title.max' => '  عنوان الخبر يجب أن لا يتجاوز 200 حرفًا',
         ];
         $this->validate($request, $rules, $messages);
         $breaking_news = new BreakingNews();
-        $breaking_news->content = $request->content;
+        $breaking_news->title = $request->title;
         $breaking_news->status = isset($request->status) && ($request->status == 'on') ? 1 : 0;
         if ($breaking_news->save()) {
             return $this->sendResponse(null, __('item_added'));
@@ -41,7 +41,6 @@ class BreakingNewsController extends Controller
     public function getData(Request $request)
     {
         $breaking_news = BreakingNews::query();
-
         return Datatables::of($breaking_news)
             ->filter(function ($query) use ($request) {
                 if ($request->get('status') !== null) {
@@ -56,10 +55,12 @@ class BreakingNewsController extends Controller
             ' . ($item->status ? 'checked' : '') . '>
             <label for="checkbox"><span class="checkbox-icon"></span> </label>';
             })
+            ->addColumn('title', function ($item) {
+            return $item->title;
+            })
             ->addColumn('action', function ($que) {
                 $data_attr = '';
                 $data_attr .= 'data-id="' . @$que->id . '" ';
-                $data_attr .= 'data-content="' . @$que->content . '" ';
                 $data_attr .= 'data-status="' . @$que->status . '" ';
                 $string = '';
                 $string .= '<button class="edit_btn btn btn-sm btn-outline-primary btn_edit" data-toggle="modal"
@@ -68,7 +69,7 @@ class BreakingNewsController extends Controller
                     '">' . __('delete') . '  </button>';
                 return $string;
             })
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['action', 'status' , 'title'])
             ->make(true);
     }
 
@@ -76,15 +77,15 @@ class BreakingNewsController extends Controller
     {
         $rules = [];
         $messages = [];
-        $rules['content'] = 'required|string|max:100';
+        $rules['title'] = 'required|string|max:200';
         $messages = [
-            'content.required' => 'عنوان الخبر مطلوب',
-            'content.string' => ' عنوان الخبر  يجب أن يكون نص',
-            'content.max' => '  عنوان الخبر يجب أن لا يتجاوز 100 حرفًا',
+            'title.required' => 'عنوان الخبر مطلوب',
+            'title.string' => ' عنوان الخبر  يجب أن يكون نص',
+            'title.max' => '  عنوان الخبر يجب أن لا يتجاوز 200 حرفًا',
         ];
         $this->validate($request, $rules, $messages);
         $breaking_news =  BreakingNews::findOrFail($request->id);
-        $breaking_news->content = $request->content;
+        $breaking_news->title = $request->title;
         $breaking_news->status = isset($request->status) && ($request->status == 'on') ? 1 : 0;
         if ($breaking_news->save()) {
             return $this->sendResponse(null, __('item_added'));
@@ -95,6 +96,12 @@ class BreakingNewsController extends Controller
     {
         $breaking_news = BreakingNews::destroy($id);
         return $this->sendResponse(null, null);
+    }
+    public function edit(Request $request)
+    {
+        $breaking_news =  BreakingNews::findOrFail($request->id);
+        return $this->sendResponse($breaking_news, null );
+
     }
     public function activate($id)
     {

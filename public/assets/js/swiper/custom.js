@@ -2,27 +2,23 @@
 var mySwiper = new Swiper("#slider-container", {
   loop: true,
   autoplay: {
-    delay: 1000,
+    delay: 7000,
+    disableOnInteraction: false,
   },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
-  on: {
-    init: function () {
-      // Hide navigation arrows by default
-      document.querySelector(".swiper-button-next").style.display = "none";
-      document.querySelector(".swiper-button-prev").style.display = "none";
-    },
-    mouseenter: function () {
-      // Show navigation arrows on mouseenter
-      document.querySelector(".swiper-button-next").style.display = "block";
-      document.querySelector(".swiper-button-prev").style.display = "block";
-    },
-    mouseleave: function () {
-      // Hide navigation arrows on mouseleave
-      document.querySelector(".swiper-button-next").style.display = "none";
-      document.querySelector(".swiper-button-prev").style.display = "none";
-    },
-  },
 });
+
+// make max lenght to noews title
+const sliderTewsTitle = document.getElementsByClassName("news-title");
+const max_length = 150;
+
+for (let i = 0; i < sliderTewsTitle.length; i++) {
+  if (sliderTewsTitle[i].textContent.length > max_length) {
+    const truncatedText =
+      sliderTewsTitle[i].textContent.slice(0, max_length) + "...";
+    sliderTewsTitle[i].textContent = truncatedText;
+  }
+}
